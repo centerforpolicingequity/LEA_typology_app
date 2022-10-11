@@ -1,10 +1,11 @@
 <template>
-  <h1>Data View</h1>
-  <hr>
   <div class="settings">
-    <div class="col-1">
+    <div class="col">
+      <p>Data:</p>
       <div class="dropdown">
-        <button @click="this.myFunction1()" class="dropbtn">Data Group</button>
+        <button @click="this.myFunction1()" class="dropbtn">Data Group
+          <font-awesome-icon icon="fa-caret-down" />
+        </button>
         <div id="myDropdown1" class="dropdown-content">
           <a href="#">Link 1</a>
           <a href="#">Link 2</a>
@@ -12,41 +13,66 @@
         </div>
       </div>
       <div class="dropdown">
-        <button @click="this.myFunction2()" class="dropbtn">Data Set</button>
+        <button @click="this.myFunction2()" class="dropbtn">Data Set
+          <font-awesome-icon icon="fa-caret-down" />
+        </button>
         <div id="myDropdown2" class="dropdown-content">
           <a href="#">Link 1</a>
           <a href="#">Link 2</a>
           <a href="#">Link 3</a>
         </div>
       </div>
-
     </div>
-    <div class="col-2">
-      <div class="extra-filters">
-        <p>Additional Filters</p>
-        <p>Time</p>
-        <div class="checkboxes">
-          <input type="checkbox" id="a" value="Bike">
-          <label for="a"> Filter by date </label>
-          <input type="checkbox" id="b" value="Bike">
-          <label for="b"> Display SQL </label>
-          <input type="checkbox" id="c" value="Bike">
-          <label for="c"> Include Sorting </label>
-          <input type="checkbox" id="d" value="Bike">
-          <label for="d"> Limit Results </label>
+    <div class="col">
+          <p>Column:</p>
+          <div class="filters-row">
+          <button @click="this.myDropdown2" class="dropbtn">Column Name
+            <font-awesome-icon icon="fa-caret-down" />
+          </button>
+          <button @click="this.myDropdown2" class="dropbtn">equal to
+            <font-awesome-icon icon="fa-caret-down" />
+          </button>
+          <div id="myDropdown1" class="dropdown-content">
+            <a href="#">less than</a>
+            <a href="#">more than</a>
+          </div>
+          <input type="text" placeholder="LEAR ID">
         </div>
-        <button>Run Query</button>
+      </div>
+      <div class="col">
+        <p>Time:</p>
+        <div class="filters-row">
+          <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+          <label for="start"> - to - </label>
+          <input type="date" id="" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+        </div>
+      </div>
+      <div class="col">
+        <p>Additional:</p>
+        <div class="col-list">
+        <input type="checkbox" id="a" value="Bike">
+          <label for="a"> By date </label>
+          <input type="checkbox" id="b" value="Bike">
+          <label for="a"> Show SQL </label>
+           <input type="checkbox" id="c" value="Bike">
+          <label for="a"> Sorting </label>
+          <input type="checkbox" id="d" value="Bike">
+          <label for="a"> Limit results </label>
+        </div>
+      </div>
+      <div class="button-row">
+        <button class="runquery">Run Query</button>
       </div>
     </div>
-  </div>
+
   <div class="data-table">
     <div class="table-buttons">
-    <button>Raw</button>
-    <button>By State</button>
-    <button>By Country</button>
-    <button>By Type</button>
-  </div>
-  <br/>
+      <button>Raw</button>
+      <button>By State</button>
+      <button>By Country</button>
+      <button>By Type</button>
+    </div>
+    <br />
     <table>
       <tr>
         <th>Index</th>
@@ -79,27 +105,25 @@ export default {
 </script>
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 .settings {
-  height: 40%;
-  display: flex;
+  height: min-content;
+  display: block;
+  padding: 1%;
+  width: 100%;
 }
 
-.col-1 {
+.col{
   float: left;
-  flex: 40%;
-  border-right-style: solid;
-  border-right-color: darkgray;
-  margin-right: 1.5%;
+  text-align: left;
+  display: block;
+  padding: 0.5%;
+  width: max-content;
 }
-
-.col-2 {
-  float: left;
-  flex: 60%;
-}
-
 /* Dropdown Button */
 .dropbtn {
+  background-color: white;
+  color: gray;
   cursor: pointer;
 }
 
@@ -113,7 +137,7 @@ export default {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: white;
   z-index: 1;
   width: 100%;
 }
@@ -123,43 +147,67 @@ export default {
   color: black;
   display: block;
 }
+.dropdown-content a:hover{
+  background-color: lightgray;
+}
 
 .show {
   display: block;
 }
-.col-2{
+
+.user-data {
+  display: flex;
+}
+
+.filters-row {
+  text-align: center;
+  display: flex;
+}
+
+.col ul li{
+  list-style: none;
   text-align: left;
+  float: left;
 }
-.col-2 .user-data {
-  display: flex;
+input{
+  height: min-content;
+  width: min-content;
 }
-.extra-settings {
-  background-color: azure;
+.button-row{
+  display: inline-block;
+  float: left;
+  width: 100%;
+  padding: 0.5%;
+  height: min-content;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
-
-.extra-settings .checkboxes {
-  display: flex;
-  align-content: flex-start;
+.button-row button{
+  float: left;
 }
-
 .data-table {
+  display: block;
   padding: 1.5%;
   height: fit-content;
   background-color: lightcyan;
   overflow: hidden;
 }
-.data-table button{
+
+.data-table button {
   float: left;
 }
-.table-buttons{
+
+.table-buttons {
   float: left;
 }
-table{
+
+table {
   background-color: azure;
   width: 100%;
   height: 20vh;
 }
-.data-table img{
+
+.data-table img {
   width: 100%;
 }
 </style>
