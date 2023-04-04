@@ -1,52 +1,62 @@
 <template>
-  <header>
-    <img src="./components/cpe_logo.png" alt="cpe_logo">
+   <header>
+    <img src="@/components/cpe_logo.png" alt="cpe_logo">
     <h2>LEA Typology</h2>
     <button class="login-btn">Login</button>
   </header>
   <div class="menu-panel">
     <ul>
-      <li><button @click="type = 'variable'">&nbsp;Variable&nbsp;</button></li>
-      <li><button disabled>|</button></li>
-      <li><button @click="type = 'agency'">&nbsp;Agency&nbsp;</button></li>
-      <li><button disabled>|</button></li>
-      <li><button @click="type = 'city'">&nbsp;City&nbsp;</button></li>
-    </ul>
+    <li><button><router-link to="/variable">Variables</router-link></button></li>
+    <li><button disabled>&nbsp;|&nbsp;</button></li>
+    <li><button><router-link to="/data">Databases</router-link></button></li>
+    <li><button disabled>&nbsp;|&nbsp;</button></li>
+    <li><button><router-link to="/agency">Agency</router-link></button></li>
+    <li><button disabled>&nbsp;|&nbsp;</button></li>
+    <li><button><router-link to="/state">State</router-link></button></li>
+    <li><button disabled>&nbsp;|&nbsp;</button></li>
+    <li><button><router-link to="/about">About</router-link></button></li>
+  </ul>
   </div>
   <div class="main-app-panel">
 
-    <div class="display-panel">
-      <VariableView v-if="type === 'variable'"></VariableView>
-      <AgencyView v-else-if="type === 'agency'"></AgencyView>
-      <CityView v-else-if="type === 'city'"></CityView>
-    </div>
-  </div>
-  <footer>
-    <p>...</p>
-  </footer>
+<div class="display-panel">
+  <router-view/>
+</div>
+</div>
+<footer>
+<p>...</p>
+</footer>
 </template>
 
 <script>
-
-import VariableView from './components/VariableView.vue';
-import AgencyView from './components/AgencyView.vue';
-import CityView from './components/CityView.vue';
-
 export default {
   name: 'App',
   props: {
   },
   data() {
     return {
-      type: 'variable'
+      type: 'variable',
+      query: ''
     }
   },
-  components: {
-    VariableView,
-    AgencyView,
-    CityView
-  },
   methods: {
+    async test() {
+
+      //var url = 'https://polar-castle-87290.herokuapp.com/data'
+      var url = 'https://localhost:3000/data'
+
+
+      await fetch(url)
+        .then((response) => {
+          return response.json();
+        }).then((result) => {
+
+          var obj = result.data
+          console.log(obj);
+        }
+        )
+
+    }
   },
   mounted() {
     console.log("mounted")
@@ -64,13 +74,11 @@ export default {
   align-items: center;
   align-content: center;
 }
-
 button {
   display: inline-block;
   text-align: center;
   cursor: pointer;
 }
-
 .primary-btn {
   color: white;
   background-color: #122A50;
@@ -79,11 +87,9 @@ button {
   border-radius: 0.75rem;
   padding: 0.75rem;
 }
-
 .primary-btn:hover {
   background-color: #1A3D74;
 }
-
 header {
   padding-top: 2vh;
   padding-bottom: 2vh;
@@ -97,12 +103,10 @@ header {
   vertical-align: middle;
   align-items: center;
 }
-
 header img {
   display: block;
   height: 100%;
 }
-
 header h2 {
   display: block;
   float: left;
@@ -110,13 +114,11 @@ header h2 {
   text-align: left;
   margin-left: 2.5%;
 }
-
 header button {
   display: block;
   float: right;
   text-align: right;
 }
-
 .login-btn {
   text-align: center;
   font-weight: bolder;
@@ -127,12 +129,10 @@ header button {
   border-radius: 0.75rem;
   padding: 0.75rem;
 }
-
 .login-btn:hover {
   background-color: #EFF4FB;
 }
-
-.menu-panel {
+.menu-panel, nav {
   padding-left: 1%;
   padding-right: 1%;
   padding-top: 0.5%;
@@ -144,7 +144,6 @@ header button {
   text-align: center;
   align-content: center !important;
 }
-
 .menu-panel ul {
   list-style-type: none;
   margin-left: auto;
@@ -152,10 +151,9 @@ header button {
   width: min-content;
   display: flex;
 }
-
 .menu-panel button {
   width: 100%;
-  color: white;
+  color: white!important;;
   background-color: #1A3D74;
   text-align: left;
   cursor: pointer;
@@ -163,12 +161,18 @@ header button {
   border: none;
   box-shadow: none;
 }
-
-.menu-panel button:hover {
-  color: #E0E0E0;
+button a{
+  color: white!important;
+  text-decoration: none;
+}
+button a:hover{
+  color: #E0E0E0!important;
   text-decoration: underline;
 }
-
+button a::after{
+  color: pink!important;
+  text-decoration: underline;
+}
 .display-panel {
   padding-left: 4%;
   padding-right: 4%;
@@ -177,7 +181,6 @@ header button {
   width: 90vw;
   height: fit-content;
 }
-
 footer {
   background-color: white;
   height: 20vh;
